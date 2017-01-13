@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.abrazovsky.myapplication">
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+
+    <meta-data
+        android:name="com.google.android.maps.v2.API_KEY"
+        android:value="AIzaSyA4Wfya-_g3OBdekjW0Z_Gm7zE4NXMvTNQ" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/MyTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <activity android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ListActivity"
+            android:label="@string/list_title"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity android:name=".menu.HelpActivity"
+            android:label="@string/help_title"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ListActivity">
+        </activity>
+        <activity android:name=".menu.ConfirmActivity"
+            android:label="@string/confirm_title"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ListActivity">
+        </activity>
+        <activity android:name=".menu.GameActivity"
+            android:label="@string/game_title"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ListActivity">
+        </activity>
+        <activity android:name=".gameMenu.TakePhotoActivity"
+            android:label="@string/takephoto_title"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".gameMenu.GalleryActivity">
+        </activity>
+        <activity android:name=".gameMenu.GalleryActivity"
+            android:label="@string/gallery_title"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".menu.GameActivity">
+        </activity>
+        <activity android:name=".gameMenu.MapActivity"
+            android:label="@string/map_title"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".menu.GameActivity">
+        </activity>
+    </application>
+</manifest>

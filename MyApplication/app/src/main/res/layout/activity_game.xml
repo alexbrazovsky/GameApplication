@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
+        android:orientation="horizontal">
+        <Button
+            android:text="Сделать фото"
+            android:layout_width="0dp"
+            android:id="@+id/buttonPhoto"
+            android:layout_weight=".5"
+            android:layout_marginLeft="3sp"
+            android:layout_marginRight="3sp"
+            android:layout_marginTop="3sp"
+            android:layout_height="match_parent"
+            android:textColor="@android:color/background_light" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:layout_marginLeft="3sp"
+            android:layout_marginRight="3sp"
+            android:layout_marginTop="3sp"
+            android:background="#FFFFFF"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25"
+            android:layout_marginLeft="3sp"
+            android:layout_marginTop="3sp"
+            android:background="#FFFFFF"/>
+        <Button
+            android:text="Галерея"
+            android:layout_width="0dp"
+            android:id="@+id/buttonGallery"
+            android:layout_weight="0.5"
+            android:layout_marginLeft="3sp"
+            android:layout_marginRight="3sp"
+            android:layout_marginTop="3sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/buttonPhoto"
+            android:layout_height="match_parent"
+            android:textColor="@android:color/background_light" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".25"
+            android:layout_marginLeft="3sp"
+            android:layout_marginTop="3sp"
+            android:background="#FFFFFF"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:layout_marginLeft="3sp"
+            android:layout_marginRight="3sp"
+            android:layout_marginTop="3sp"
+            android:background="#FFFFFF"/>
+        <Button
+            android:text="Карта"
+            android:layout_width="0dp"
+            android:id="@+id/buttonMap"
+            android:layout_weight=".5"
+            android:layout_margin="3sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_height="match_parent"
+            android:textColor="@android:color/background_light" />
+    </LinearLayout>
+
+</LinearLayout>

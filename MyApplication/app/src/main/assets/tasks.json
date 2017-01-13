@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Звездочет",
+    "video": "",
+    "photo": "gallery2",
+    "text": "<b>Loremabo cupida m adiatur. Exceptent mollit anim id est laborum.",
+    "lat": "53.902275",
+    "lon": "30.340742",
+    "checked": "0"
+  },
+  {
+    "name": "Музей истории Могилева",
+    "video": "video",
+    "photo": "photo",
+    "text": "<b>Loremabo cupida m adiatur. Exceptent mollit anim id est laborum.",
+    "lat": "53.894332",
+    "lon": "30.332184",
+    "checked": "0"
+  },
+  {
+    "name": "Буффет",
+    "video": "",
+    "photo": "photo",
+    "text": "<b>Loremabo cupida m adiatur. Exceptent mollit anim id est laborum.",
+    "lat": "53.894332",
+    "lon": "30.332184",
+    "checked": "0"
+  },
+  {
+    "name": "БРУ",
+    "video": "",
+    "photo": "photo",
+    "text": "<b>Loremabo cupida m adiatur. Exceptent mollit anim id est laborum.",
+    "lat": "53.894332",
+    "lon": "30.332184",
+    "checked": "0"
+  },
+  {
+    "name": "ДрамТеатр",
+    "video": "",
+    "photo": "photo",
+    "text": "<b>Loremabo cupida m adiatur. Exceptent mollit anim id est laborum.",
+    "lat": "53.894332",
+    "lon": "30.332184",
+    "checked": "0"
+  },
+  {
+    "name": "Ратуша",
+    "video": "",
+    "photo": "photo",
+    "text": "<b>Loremabo cupida m adiatur. Exceptent mollit anim id est laborum.",
+    "lat": "53.894332",
+    "lon": "30.332184",
+    "checked": "0"
+  }
+]

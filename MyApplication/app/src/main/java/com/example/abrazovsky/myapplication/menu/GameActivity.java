@@ -1,0 +1,103 @@
+package com.example.abrazovsky.myapplication.menu;
+
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.example.abrazovsky.myapplication.R;
+import com.example.abrazovsky.myapplication.database.DatabaseHandler;
+import com.example.abrazovsky.myapplication.database.Task;
+import com.example.abrazovsky.myapplication.gameMenu.GalleryActivity;
+import com.example.abrazovsky.myapplication.gameMenu.MapActivity;
+import com.example.abrazovsky.myapplication.gameMenu.TakePhotoActivity;
+import com.example.abrazovsky.myapplication.mailSender.GMailSender;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by A.Brazovsky on 04.01.2017.
+ */
+
+public class GameActivity extends AppCompatActivity {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
+        final Button buttonPhoto = (Button) findViewById(R.id.buttonPhoto);
+        final Activity activity = this;
+        buttonPhoto.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                IntentIntegrator integrator  = new IntentIntegrator(activity);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setPrompt(getString(R.string.scaning_word));
+                integrator.setCameraId(0);
+                integrator.setBeepEnabled(false);
+                integrator.setBarcodeImageEnabled(false);
+                integrator.initiateScan();
+            }
+        });
+
+        final Button buttonGallery = (Button) findViewById(R.id.buttonGallery);
+        buttonGallery.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(GameActivity.this, GalleryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        final Button buttonMap = (Button) findViewById(R.id.buttonMap);
+        buttonMap.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(GameActivity.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents()==null){
+                Toast.makeText(this, getString(R.string.scaning_cancel), Toast.LENGTH_LONG).show();
+            }
+            else{
+                final DatabaseHandler db = new DatabaseHandler(this);
+                Intent intent = new Intent(GameActivity.this, TakePhotoActivity.class);
+                final Task task = db.getTask(result.getContents());
+                intent.putExtra("task_name",task.getName());
+                intent.putExtra("task_text",task.getText());
+                intent.putExtra("task_video",task.getVideo());
+                intent.putExtra("task_photo",task.getPhoto());
+                intent.putExtra("helper_id",task.getID());
+                db.updateTask(task);
+                /*new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            GMailSender user = new GMailSender();
+                            if (task.getChecked()==0){
+                                db.updateTask(task);
+                                user.sendMail("Света начала выполнять задание \""
+                                    + task.getName() + "\"" );}
+                        } catch (Exception e) {
+                            Log.e("SendMail", e.getMessage(), e);
+                        }
+                    }
+                }).start();*/
+                startActivity(intent);
+                db.close();
+            }
+        }
+        else{
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+}
