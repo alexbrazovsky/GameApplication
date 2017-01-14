@@ -17,7 +17,10 @@
     <string name="map_title">Map</string>
     <string name="scaning_word">Наведи камеру на QR - код</string>
     <string name="scaning_cancel" >Ты выключила сканнер</string>
+    <string name="scaning_wrong" >Этот QR - код вообще не из этой игры.</string>
     <string name="no_markers_on_map">Пока нет выполненных заданий. Постарайся!</string>
     <string name="first_task">Первое задание</string>
     <string name="second_task">Второе задание</string>
+    <string name="final_word">Final</string>
+    <string name="final_title">Final</string>
 </resources>

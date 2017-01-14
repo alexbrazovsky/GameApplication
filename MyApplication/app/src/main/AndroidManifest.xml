@@ -70,5 +70,10 @@
             android:screenOrientation="portrait"
             android:parentActivityName=".menu.GameActivity">
         </activity>
+        <activity android:name=".FinalActivity"
+            android:label="@string/final_title"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".menu.GameActivity">
+        </activity>
     </application>
 </manifest>

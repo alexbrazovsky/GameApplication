@@ -64,20 +64,32 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        String content = result.getContents();
         if (result != null) {
-            if (result.getContents()==null){
+            if (content==null){
                 Toast.makeText(this, getString(R.string.scaning_cancel), Toast.LENGTH_LONG).show();
             }
             else{
                 final DatabaseHandler db = new DatabaseHandler(this);
+                final Task task = db.getTask(content);
+                db.updateTask(task);
+                db.close();
+                /*if (task==null){
+                    if (content == getString(R.string.final_word)){
+                        Intent intent = new Intent(GameActivity.this, TakePhotoActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(this, getString(R.string.scaning_wrong), Toast.LENGTH_LONG).show();
+                    }
+                }
+                else{*/
                 Intent intent = new Intent(GameActivity.this, TakePhotoActivity.class);
-                final Task task = db.getTask(result.getContents());
                 intent.putExtra("task_name",task.getName());
                 intent.putExtra("task_text",task.getText());
                 intent.putExtra("task_video",task.getVideo());
                 intent.putExtra("task_photo",task.getPhoto());
                 intent.putExtra("helper_id",task.getID());
-                db.updateTask(task);
+
                 /*new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -93,7 +105,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }).start();*/
                 startActivity(intent);
-                db.close();
+                //}
             }
         }
         else{

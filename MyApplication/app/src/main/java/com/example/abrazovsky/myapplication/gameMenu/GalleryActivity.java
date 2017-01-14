@@ -71,7 +71,7 @@ public class GalleryActivity extends AppCompatActivity {
             }
         }).start();
 
-        if ( task.getChecked() != 0 ){
+        if ( task.getChecked() == 0 ){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
