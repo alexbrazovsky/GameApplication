@@ -66,11 +66,12 @@ public class GameActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         String content = result.getContents();
+        System.out.println(content);
         if (result != null) {
             if (content==null){
                 Toast.makeText(this, getString(R.string.scaning_cancel), Toast.LENGTH_LONG).show();
             }
-            else if (content == getString(R.string.final_word)){
+            else if (content.equals(getString(R.string.final_word))){
                 Intent intent = new Intent(GameActivity.this, FinalActivity.class);
                 startActivity(intent);
             }

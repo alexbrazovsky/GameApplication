@@ -38,19 +38,9 @@ public class GalleryActivity extends AppCompatActivity {
     }
     public LinearLayout drawLinearLayout(final int id) {
         final LinearLayout newline = new LinearLayout(this);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                newline.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        newline.setId(id);
-                        newline.setOrientation(LinearLayout.HORIZONTAL);
-                        newline.setLayoutParams(Params);
-                    }
-                });
-            }
-        }).start();
+        newline.setId(id);
+        newline.setOrientation(LinearLayout.HORIZONTAL);
+        newline.setLayoutParams(Params);
         return newline;
     }
     public Button drawButton(int id) {
@@ -58,60 +48,30 @@ public class GalleryActivity extends AppCompatActivity {
         final Task task = db.getTask(id);
         db.close();
         final Button btn = new Button(this);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                btn.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        btn.setId(task.getID());
-                        btn.setLayoutParams(Params);
-                    }
-                });
-            }
-        }).start();
+        btn.setId(task.getID());
+        btn.setLayoutParams(Params);
 
         if ( task.getChecked() == 0 ){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    btn.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            btn.setText("/*Пока не пройдено задание*/");
-                            btn.setEnabled(false);
-                        }
-                    });
-                }
-            }).start();
+            btn.setText("/*Пока не пройдено задание*/");
+            btn.setEnabled(false);
         } else {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    btn.post(new Runnable() {
+            btn.setText(task.getName());
+            btn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            btn.setText(task.getName());
-                            btn.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            final Intent intent = new Intent(GalleryActivity.this, TakePhotoActivity.class);
-                                            intent.putExtra("task_name",task.getName());
-                                            intent.putExtra("task_text",task.getText());
-                                            intent.putExtra("task_video",task.getVideo());
-                                            intent.putExtra("task_photo",task.getPhoto());
-                                            intent.putExtra("helper_id",task.getID());
-                                            startActivity(intent);
-                                        }
-                                    }).start();
-                                }
-                            });
+                            final Intent intent = new Intent(GalleryActivity.this, TakePhotoActivity.class);
+                            intent.putExtra("task_name",task.getName());
+                            intent.putExtra("task_text",task.getText());
+                            intent.putExtra("task_video",task.getVideo());
+                            intent.putExtra("task_photo",task.getPhoto());
+                            intent.putExtra("helper_id",task.getID());
+                            startActivity(intent);
                         }
-                    });
+                    }).start();
                 }
-            }).start();
+            });
         }
         return btn;
     }

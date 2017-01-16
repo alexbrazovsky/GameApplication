@@ -59,23 +59,14 @@ public class TakePhotoActivity extends AppCompatActivity {
             configureVideoView();
             video.setVisibility(View.VISIBLE);
         }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                button.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        button.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-                                video.pause();
-                                Intent intent = new Intent(TakePhotoActivity.this, GameActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                video.pause();
+                Intent intent = new Intent(TakePhotoActivity.this, GameActivity.class);
+                startActivity(intent);
             }
-        }).start();
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -105,25 +96,15 @@ public class TakePhotoActivity extends AppCompatActivity {
         int num = double_num.intValue();
         if (num < 1){
             num_of_helpers.setText("0");
-            new Thread(new Runnable() {
+            iv.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void run() {
-                    iv.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            iv.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    AlertDialog.Builder alert = set_alert("Ой", "Ты использовала все подсказки." +
-                                            "Звони людям, которых ты больше всех любишь.","Плохо");
-                                    AlertDialog alert_dialog = alert.create();
-                                    alert_dialog.show();
-                                }
-                            });
-                        }
-                    });
+                public void onClick(View v) {
+                    AlertDialog.Builder alert = set_alert("Ой", "Ты использовала все подсказки." +
+                            "Звони людям, которых ты больше всех любишь.","Плохо");
+                    AlertDialog alert_dialog = alert.create();
+                    alert_dialog.show();
                 }
-            }).start();
+            });
         }else {
             num_of_helpers.setText(String.valueOf(num));
             configureHelperImageView();
@@ -188,26 +169,16 @@ public class TakePhotoActivity extends AppCompatActivity {
         final MediaController mediaController = new MediaController(this);
         final Uri uri = getUri(extras.getString("task_video"));
         video.setVideoURI(uri);
-        new Thread(new Runnable() {
+        //video.seekTo(100);
+        video.setOnTouchListener( new View.OnTouchListener() {
             @Override
-            public void run() {
-                video.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //video.seekTo(100);
-                        video.setOnTouchListener( new View.OnTouchListener() {
-                            @Override
-                            public boolean onTouch(View v, MotionEvent event) {
-                                video.setMediaController(mediaController);
-                                mediaController.setAnchorView(video);
-                                mediaController.show();
-                                return true;
-                            }
-                        });
-                    }
-                });
+            public boolean onTouch(View v, MotionEvent event) {
+                video.setMediaController(mediaController);
+                mediaController.setAnchorView(video);
+                mediaController.show();
+                return true;
             }
-        }).start();
+        });
     }
     public Uri getUri (String name){
         int id = this.getResources().getIdentifier(name, "raw", this.getPackageName());
