@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.abrazovsky.myapplication.R;
 import com.example.abrazovsky.myapplication.database.DatabaseHandler;
 import com.example.abrazovsky.myapplication.database.Task;
+import com.example.abrazovsky.myapplication.gameMenu.FinalActivity;
 import com.example.abrazovsky.myapplication.gameMenu.GalleryActivity;
 import com.example.abrazovsky.myapplication.gameMenu.MapActivity;
 import com.example.abrazovsky.myapplication.gameMenu.TakePhotoActivity;
@@ -69,43 +70,43 @@ public class GameActivity extends AppCompatActivity {
             if (content==null){
                 Toast.makeText(this, getString(R.string.scaning_cancel), Toast.LENGTH_LONG).show();
             }
+            else if (content == getString(R.string.final_word)){
+                Intent intent = new Intent(GameActivity.this, FinalActivity.class);
+                startActivity(intent);
+            }
             else{
                 final DatabaseHandler db = new DatabaseHandler(this);
                 final Task task = db.getTask(content);
                 db.updateTask(task);
                 db.close();
-                /*if (task==null){
-                    if (content == getString(R.string.final_word)){
-                        Intent intent = new Intent(GameActivity.this, TakePhotoActivity.class);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(this, getString(R.string.scaning_wrong), Toast.LENGTH_LONG).show();
-                    }
+                if (task==null) {
+                    Toast.makeText(this, getString(R.string.scaning_wrong), Toast.LENGTH_LONG)
+                            .show();
                 }
-                else{*/
-                Intent intent = new Intent(GameActivity.this, TakePhotoActivity.class);
-                intent.putExtra("task_name",task.getName());
-                intent.putExtra("task_text",task.getText());
-                intent.putExtra("task_video",task.getVideo());
-                intent.putExtra("task_photo",task.getPhoto());
-                intent.putExtra("helper_id",task.getID());
+                else{
+                    Intent intent = new Intent(GameActivity.this, TakePhotoActivity.class);
+                    intent.putExtra("task_name",task.getName());
+                    intent.putExtra("task_text",task.getText());
+                    intent.putExtra("task_video",task.getVideo());
+                    intent.putExtra("task_photo",task.getPhoto());
+                    intent.putExtra("helper_id",task.getID());
 
-                /*new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            GMailSender user = new GMailSender();
-                            if (task.getChecked()==0){
-                                db.updateTask(task);
-                                user.sendMail("Света начала выполнять задание \""
-                                    + task.getName() + "\"" );}
-                        } catch (Exception e) {
-                            Log.e("SendMail", e.getMessage(), e);
+                    /*new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                GMailSender user = new GMailSender();
+                                if (task.getChecked()==0){
+                                    db.updateTask(task);
+                                    user.sendMail("Света начала выполнять задание \""
+                                        + task.getName() + "\"" );}
+                            } catch (Exception e) {
+                                Log.e("SendMail", e.getMessage(), e);
+                            }
                         }
-                    }
-                }).start();*/
-                startActivity(intent);
-                //}
+                    }).start();*/
+                    startActivity(intent);
+                }
             }
         }
         else{

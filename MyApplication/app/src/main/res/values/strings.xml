@@ -23,4 +23,10 @@
     <string name="second_task">Второе задание</string>
     <string name="final_word">Final</string>
     <string name="final_title">Final</string>
+
+    <string name="blue_dark">#353ba8</string>
+    <string name="blue_med">#5197dc</string>
+    <string name="purple">#8d76bd</string>
+    <string name="blue_light">#69363ca8</string>
+
 </resources>
