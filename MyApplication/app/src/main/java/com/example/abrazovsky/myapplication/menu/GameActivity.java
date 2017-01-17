@@ -160,6 +160,9 @@ public class GameActivity extends AppCompatActivity {
                                 new DialogInterface.OnClickListener() {
                             @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(GameActivity.this, ListActivity.class);
+                                int FLAG_ACTIVITY_NO_HISTORY = 1073741824;
+                                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
                                 finish();
                                 db.refreshTable();
                                 db.refreshTableHelpers();
