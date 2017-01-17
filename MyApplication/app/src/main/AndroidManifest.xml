@@ -72,6 +72,7 @@
         </activity>
         <activity android:name=".gameMenu.FinalActivity"
             android:label="@string/final_title"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             android:parentActivityName=".menu.GameActivity">
         </activity>

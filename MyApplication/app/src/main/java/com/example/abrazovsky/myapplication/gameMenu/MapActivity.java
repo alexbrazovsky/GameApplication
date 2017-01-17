@@ -20,18 +20,16 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.List;
 
-import static java.lang.Math.atan2;
-import static java.lang.Math.sqrt;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
-
+    Bundle extras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        extras = getIntent().getExtras();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -52,13 +50,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         List<Task> tasks = db.getAllTasks();
         int count_completed_tasks = db.getTasksCount();
         db.close();
-        addNewMarker(map,53.900772,30.331154,"Могилев");
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(53.900772,30.331154))
-                .zoom(15)
-                .tilt(30)
-                .build();
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        setupMap(map);
+        try{
+            if (extras.getString("blue_marker").equals("yes")) addBlueMarker (map);
+        }catch (Exception e){}
         if (count_completed_tasks>0) {
             for (Task task : tasks) {
                 if (task.getChecked() != 0) {
@@ -69,10 +64,31 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             Toast.makeText(this, getString(R.string.no_markers_on_map), Toast.LENGTH_LONG).show();
         }
     }
+    public void setupMap (GoogleMap map){
+        addNewMarker(map,Float.valueOf(getString(R.string.mogilev_lat)),
+                Float.valueOf(getString(R.string.mogilev_lon)),
+                getString(R.string.mogilev));
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(Float.valueOf(getString(R.string.mogilev_lat)),
+                        Float.valueOf(getString(R.string.mogilev_lon))))
+                .zoom(15)
+                .tilt(30)
+                .build();
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+    public void addBlueMarker (GoogleMap map){
+        LatLng point = new LatLng(Float.valueOf(getString(R.string.blue_marker_lat)),
+                Float.valueOf(getString(R.string.mogilev_lon)));
+        map.addMarker(new MarkerOptions().position(point)
+                .title( getString(R.string.blue_marker))
+                .icon(BitmapDescriptorFactory.
+                        fromBitmap(resizeMapIcons("google_map_marker_blue",120,195))));
+    }
     public void addNewMarker (GoogleMap map, double lat, double lon, String title){
         LatLng point = new LatLng(lat, lon);
         map.addMarker(new MarkerOptions().position(point).title(title)
-                .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("google_map_marker",111,180))));
+                .icon(BitmapDescriptorFactory.
+                        fromBitmap(resizeMapIcons("google_map_marker",111,180))));
     }
     public Bitmap resizeMapIcons(String iconName,int width, int height){
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
